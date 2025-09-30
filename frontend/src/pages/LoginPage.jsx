@@ -23,7 +23,7 @@ export default function Login() {
     setError("");
     try {
       const res = await API.post("/api/auth/login", { email, password });
-
+      localStorage.clear();
       // Save login details to localStorage
       sessionStorage.setItem("token", res.data.token);
       sessionStorage.setItem("id", res.data.id); 
