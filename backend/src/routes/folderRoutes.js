@@ -230,6 +230,7 @@ router.post("/delete", async (req, res) => {
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadPath = path.join(STORAGE_PATH, folder_path || "");
+    console.log('Upload path:', uploadPath);
     if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath, { recursive: true });
     cb(null, uploadPath);
   },
@@ -246,8 +247,9 @@ router.post("/upload", upload.single("file"), async (req, res) => {
   }
 
   try {
-    const relativePath = path.join(folder_path || "", req.file.originalname);
-
+    const folderpath = req.body.path || "";
+    const relativePath = path.join(folderpath || "", req.file.originalname);
+    console.log('File uploaded to:', relativePath);
     // Store in DB
     await db.Metadata.create({
       fileName: req.file.originalname,

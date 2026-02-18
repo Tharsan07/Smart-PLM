@@ -30,7 +30,7 @@ export default function Dashboard({ authToken, setPage }) {
   const [assemblyCodeFilter, setAssemblyCodeFilter] = useState("");
   const [companies, setCompanies] = useState([]);
   const [assemblyCodes, setAssemblyCodes] = useState([]);
-
+  localStorage.clear();
   useEffect(() => {
     fetchFiles();
     fetchCompanies();
@@ -39,7 +39,7 @@ export default function Dashboard({ authToken, setPage }) {
 
   useEffect(() => {
     if (currentPath !== undefined) {
-      localStorage.setItem("currentPath", currentPath);
+      sessionStorage.setItem("currentPath", currentPath);
       fetchFiles();
     }
   }, [currentPath]);
